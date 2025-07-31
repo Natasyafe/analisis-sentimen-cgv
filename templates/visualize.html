@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sentiment Analysis Visualization</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+  <nav class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+        <div class="text-xl font-semibold text-red-600">CGV Sentimen</div>
+        <div class="space-x-4">
+          <a href="/" class="text-gray-700 hover:text-red-600 font-medium">Home</a>
+          <a href="/visualize" class="text-gray-700 hover:text-red-600 font-medium">Visualizations</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="p-6 sm:p-10 max-w-7xl mx-auto">
+    <h1 class="text-3xl font-bold text-gray-800 mb-8">Visualization</h1>
+
+    <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-2xl font-semibold text-red-700 mb-4">Perbandingan Sentimen antar Model</h2>
+      <img src="data:image/png;base64,{{ model_comparison_img }}" alt="Model Comparison" class="w-full h-auto rounded">
+    </section>
+
+    <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-2xl font-semibold text-red-700 mb-4">Akurasi dan Confusion Matrix</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="text-center">
+          <p class="font-medium text-gray-700 mb-2">Naive Bayes<br><span class="text-sm text-red-500">(Akurasi: {{ acc_nb }}%)</span></p>
+          <img src="data:image/png;base64,{{ cm_nb }}" alt="Confusion Matrix NB" class="w-full h-auto rounded shadow">
+        </div>
+        <div class="text-center">
+          <p class="font-medium text-gray-700 mb-2">SVM<br><span class="text-sm text-red-500">(Akurasi: {{ acc_svm }}%)</span></p>
+          <img src="data:image/png;base64,{{ cm_svm }}" alt="Confusion Matrix SVM" class="w-full h-auto rounded shadow">
+        </div>
+        <div class="text-center">
+          <p class="font-medium text-gray-700 mb-2">Random Forest<br><span class="text-sm text-red-500">(Akurasi: {{ acc_rf }}%)</span></p>
+          <img src="data:image/png;base64,{{ cm_rf }}" alt="Confusion Matrix RF" class="w-full h-auto rounded shadow">
+        </div>
+      </div>
+    </section>
+
+    {% if sentiment_trend_img %}
+    <section class="bg-white p-6 rounded-lg shadow-md mb-8">
+      <h2 class="text-2xl font-semibold text-red-700 mb-4">Tren Sentimen</h2>
+      <img src="data:image/png;base64,{{ sentiment_trend_img }}" alt="Sentiment Trend" class="w-full h-auto rounded">
+    </section>
+    {% endif %}
+
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-xl font-semibold text-green-600 mb-4">WordCloud Positif</h3>
+        <img src="data:image/png;base64,{{ wordcloud_pos }}" alt="WordCloud Positif" class="w-full h-auto rounded">
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-xl font-semibold text-red-600 mb-4">WordCloud Negatif</h3>
+        <img src="data:image/png;base64,{{ wordcloud_neg }}" alt="WordCloud Negatif" class="w-full h-auto rounded">
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md text-center">
+        <h3 class="text-xl font-semibold text-blue-600 mb-4">WordCloud Netral</h3>
+        <img src="data:image/png;base64,{{ wordcloud_neutral }}" alt="WordCloud Netral" class="w-full h-auto rounded">
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
